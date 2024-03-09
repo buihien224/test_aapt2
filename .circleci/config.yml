@@ -1,0 +1,19 @@
+version: 2.1
+
+jobs:
+  build:
+    machine:
+      image: ubuntu-2004:2023.04.2
+    
+    steps:
+        - checkout
+        - run: echo $CIRCLE_BUILD_URL
+        - run: sudo apt-get install -y zip unzip android-sdk-libsparse-utils python3-pip p7zip-full 
+        - run: |
+              aapt2_b="./aapt2"
+              for apk_file in $(sudo find -type f -name "*.apk") ; do
+                  echo $apk_file
+                  package_name=$(sudo aapt2_b dump badging $apk_file >/dev/null 2>&1 | grep 'Package name=' )
+                  echo "$apk_file:$package_name"
+              done
+
