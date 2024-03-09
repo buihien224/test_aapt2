@@ -13,6 +13,12 @@ jobs:
               aapt2_b="./bin/aapt2"
               for apk_file in $(sudo find -type f -name "*.apk") ; do
                   package_name=$(sudo $aapt2_b dump badging $apk_file 2>/dev/null | grep package | head -1 | awk '{print $2}' | sed s/name=//g | sed s/\'//g  )
-                  echo "$apk_file:$package_name"
+                  echo "$apk_file:$package_name" apks_paths
               done
+
+              b=$(grep ":hypervs.com.miui.contentcatcher\$" "$apk_paths" | cut -d':' -f1)
+
+              if [[ $b ]]; then
+                echo $b:=$1
+              fi
 
