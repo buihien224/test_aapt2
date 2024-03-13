@@ -1,0 +1,26 @@
+name: hyper_erofs_build
+
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+
+       - name: Checkout
+         uses: actions/checkout@v2
+       
+       - name: Setting up
+         run: |
+            sudo apt-get install -y git wget zip unzip android-sdk-libsparse-utils brotli axel python3-pip zipalign apksigner xmlstarlet vim aapt p7zip-full
+            sudo pip3 install ConfigObj
+            sudo pip3 install firebase_admin
+            sudo pip3 install telebot
+          
+            
+       - name: TEST
+         run: |
+            cat shennong.xml
